@@ -4,7 +4,7 @@ import { urlFor } from '../lib/client'
 const FooterBanner = ({ banner: {discount, largeText1, largeText2, saleTime, smallText, midText,description, buttonText, image, product} }) => {
   return (
     <div className="w-11/12 mx-auto mt-24 text-white bg-red-600 rounded-2xl">
-      <div className="py-24 ml-10 lg:grid-cols-3 lg:grid">
+      <div className="py-10 ml-10 lg:grid-cols-3 lg:grid sm:flex sm:flex-col sm:items-center">
         {/* left */}
         <div className="col-span-1">
           <p>{discount}</p>
@@ -14,7 +14,11 @@ const FooterBanner = ({ banner: {discount, largeText1, largeText2, saleTime, sma
         </div>
       {/* center */}
       <div className="col-span-1">
-      <img src={urlFor(image)} alt="headphones" className="absolute"/>
+      <img  src={urlFor(image)} 
+            alt="headphones" 
+            width="250" 
+            height="250"
+            className=""/>
       </div>
       {/* right */}
       <div className="col-span-1">
