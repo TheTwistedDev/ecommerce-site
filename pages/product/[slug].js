@@ -2,20 +2,21 @@ import { client, urlFor } from '../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import Product from '../../components/Product'
 import { useState } from 'react'
+import { useStateContext } from '../../context/StateContext'
 
 const ProductDetails = ({ product, products}) => {
     const { image, name, description, price } = product
     const [index, setIndex] = useState(0)
+    const { decreaseQuantity, increaseQuantity, quantity,onAdd } = useStateContext()
+
   return (
     <div>
         <div>
-           <div className="flex">
+           <div className="flex flex-wrap justify-center mb-12">
                <div className="flex flex-col">
                 <div>
                     <img src={urlFor(image && image[index])} 
-                    width={500}
-                    height={500}
-                    className="mx-12 bg-gray-200 rounded-2xl"
+                    className="bg-gray-200 rounded-2xl md:mx-12"
                         />
                 </div>
                 <div className="flex justify-center mt-4 space-x-2">
@@ -49,20 +50,20 @@ const ProductDetails = ({ product, products}) => {
                    <div className="flex flex-col">
                        <h3 className="font-bold text-slate-600">Quantity: </h3>
                        <p className="grid grid-cols-3 my-2 border divide-x divide-black shadow-sm">
-                           <span className="flex items-center justify-center my-3 text-slate-700" onClick=""><AiOutlineMinus className="cursor-pointer" /></span>
-                           <span className="flex items-center justify-center text-slate-700" onClick="">0</span>
-                           <span className="flex items-center justify-center text-slate-700" onClick=""><AiOutlinePlus className="cursor-pointer" /></span>
+                           <span className="flex items-center justify-center my-3 text-slate-700" onClick={decreaseQuantity}><AiOutlineMinus className="cursor-pointer" /></span>
+                           <span className="flex items-center justify-center text-slate-700">{quantity}</span>
+                           <span className="flex items-center justify-center text-slate-700" onClick={increaseQuantity}><AiOutlinePlus className="cursor-pointer" /></span>
                        </p>
                    </div>
                    <div className="flex flex-col mt-10 space-y-10">
-                       <button type="button" className="p-3 font-bold text-red-600 duration-200 border border-red-600 hover:scale-105" onClick="">Add to Cart</button>
-                       <button type="button" className="p-3 font-bold text-white duration-200 bg-red-600 hover:scale-105" onClick="">Buy Now</button>
+                       <button type="button" className="p-3 font-bold text-red-600 duration-200 border border-red-600 hover:scale-105" onClick={() => onAdd(product, quantity)}>Add to Cart</button>
+                       <button type="button" className="p-3 font-bold text-white duration-200 bg-red-600 hover:scale-105" >Buy Now</button>
                    </div>
                </div>
            </div>
            <div className="flex flex-col items-center">
                 <h2 className="text-2xl font-bold text-slate-600">You may also like</h2> 
-                <div className="flex mt-24 space-x-4">
+                <div className="flex flex-wrap justify-center mt-24 space-x-4">
                     {products.map((item) => (
                         <Product key={item._id} product={item} />
                     ))}

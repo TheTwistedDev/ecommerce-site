@@ -22,9 +22,9 @@ const HeroBanner = ({ heroBanner }) => {
         <img src={urlFor(heroBanner.image)} alt="headphones" className=" w-min h-min"/>
       </div>
       {/* right */}
-      <div className="flex flex-col col-span-1">
+      <div className="flex flex-col items-center col-span-1">
             <h5 className="pb-2 font-bold text-cyan-900">Description:</h5>
-            <p className="font-light">{heroBanner.description}</p>
+            <p className="mb-4 font-light">{heroBanner.description}</p>
         </div>
      </div>
     </div>
