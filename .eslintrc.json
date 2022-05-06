@@ -1,6 +1,6 @@
 {
-  "extends": [ "next/babel", "next"],
+  "extends": [ "next/babel", "next/core-web-vitals"],
   "rules": {
-
+    "react-hooks/rules-of-hooks": "off"
   }
 }
