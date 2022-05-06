@@ -7,7 +7,12 @@ import { useStateContext } from '../../context/StateContext'
 const ProductDetails = ({ product, products}) => {
     const { image, name, description, price } = product
     const [index, setIndex] = useState(0)
-    const { decreaseQuantity, increaseQuantity, quantity,onAdd } = useStateContext()
+    const { decreaseQuantity, increaseQuantity, quantity, onAdd, setShowCart } = useStateContext()
+
+    const handleBuyNow = () => {
+        onAdd(product, quantity)
+        setShowCart(true)
+    }
 
   return (
     <div>
@@ -16,12 +21,14 @@ const ProductDetails = ({ product, products}) => {
                <div className="flex flex-col">
                 <div>
                     <img src={urlFor(image && image[index])} 
-                    className="bg-gray-200 rounded-2xl md:mx-12"
+                    className="max-w-xl bg-gray-200 rounded-2xl md:mx-12 max-h-xl"
                         />
                 </div>
                 <div className="flex justify-center mt-4 space-x-2">
                     {image?.map((item, i) => (
-                        <img src={urlFor(item)}
+                        <img 
+                                key={i}
+                                src={urlFor(item)}
                                 width={100}
                                 height={100}
                                 className="duration-200 bg-gray-200 cursor-pointer rounded-2xl hover:scale-105"
@@ -57,7 +64,7 @@ const ProductDetails = ({ product, products}) => {
                    </div>
                    <div className="flex flex-col mt-10 space-y-10">
                        <button type="button" className="p-3 font-bold text-red-600 duration-200 border border-red-600 hover:scale-105" onClick={() => onAdd(product, quantity)}>Add to Cart</button>
-                       <button type="button" className="p-3 font-bold text-white duration-200 bg-red-600 hover:scale-105" >Buy Now</button>
+                       <button type="button" className="p-3 font-bold text-white duration-200 bg-red-600 hover:scale-105" onClick={handleBuyNow}>Buy Now</button>
                    </div>
                </div>
            </div>

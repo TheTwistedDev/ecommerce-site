@@ -13,7 +13,7 @@ const HeroBanner = ({ heroBanner }) => {
           <h1 className="font-bold text-white text-9xl">{heroBanner.largeText1}</h1>
           <div className="mt-4">
             <Link href={`product/${heroBanner.product}`}>
-              <button type="button" className="pt-2 pb-2 pl-4 pr-4 text-white bg-red-600 rounded-xl">{heroBanner.buttonText}</button>
+              <button type="button" className="pt-2 pb-2 pl-4 pr-4 text-white duration-200 bg-red-600 rounded-xl hover:scale-105">{heroBanner.buttonText}</button>
             </Link>
           </div>
         </div>

@@ -5,10 +5,30 @@ import { TiDeleteOutline } from 'react-icons/ti'
 import toast from 'react-hot-toast'
 import { useStateContext } from '../context/StateContext'
 import { urlFor } from '../lib/client'
+import getStripe from '../lib/getStripe'
 
 export const Cart = () => {
     const cartRef = useRef()
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove} = useStateContext()
+
+    const handleCheckout = async () => {
+        const stripe = await getStripe()
+
+        const response = await fetch('/api/stripe', 
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cartItems),
+        })
+
+        if(response.statusCode === 500) return
+        
+        const data = await response.json()
+        toast.loading('Redirecting....')
+        stripe.redirectToCheckout({ sessionId: data.id })
+    }
 
   return (
     <div className="absolute top-0 right-0 w-screen h-screen bg-white border-b border-l shadow-lg md:w-7/12 lg:w-4/12" ref={cartRef}>
@@ -60,7 +80,7 @@ export const Cart = () => {
                         <h3 className="absolute right-0 pr-12 text-xl font-bold">${totalPrice}</h3>
                     </div>
                     <div className="flex justify-center">
-                        <button type="button" className="w-1/2 py-2 text-lg font-bold text-white duration-200 bg-red-600 rounded-xl hover:scale-105" onClick="">
+                        <button type="button" className="w-1/2 py-2 text-lg font-bold text-white duration-200 bg-red-600 rounded-xl hover:scale-105" onClick={handleCheckout}>
                             Pay With Stripe
                         </button>
                     </div>

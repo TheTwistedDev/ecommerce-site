@@ -26,7 +26,7 @@ const FooterBanner = ({ banner: {discount, largeText1, largeText2, saleTime, sma
         <h3 className="text-6xl font-bold">{midText}</h3>
         <p className="mt-4">{description}</p>
         <Link href={`/product/${product}`}>
-          <button type="button" className="p-2 mt-8 font-medium text-red-600 bg-white rounded-xl">{buttonText}</button>
+          <button type="button" className="p-2 mt-8 font-medium text-red-600 duration-200 bg-white rounded-xl hover:scale-105">{buttonText}</button>
         </Link>
       </div>
     </div>
